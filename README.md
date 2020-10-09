@@ -21,6 +21,9 @@ Credentials:
     password: 4rfv4rfv
 
 [Login page](http://localhost:8000/accounts/login/)
+
 [Author endpoint](http://localhost:8000/api/authors/)
+
 [Books endpoint](http://localhost:8000/api/books/)
+
 [Subscriber endpoint](http://localhost:8000/api/subscribers/)
