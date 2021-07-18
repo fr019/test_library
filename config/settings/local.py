@@ -13,6 +13,32 @@ SECRET_KEY = env(
 # https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1"]
 
+SHELL_PLUS = "ipython"
+
+SHELL_PLUS_PRINT_SQL = True
+
+NOTEBOOK_ARGUMENTS = [
+    "--ip", "0.0.0.0",
+    "--port", "8888",
+    "--allow-root",
+    "--no-browser",
+]
+
+IPYTHON_ARGUMENTS = [
+    "--ext",
+    "django_extensions.management.notebook_extension",
+    "--debug",
+]
+
+IPYTHON_KERNEL_DISPLAY_NAME = "Django Shell-Plus"
+
+SHELL_PLUS_IMPORTS = [
+    'from datetime import datetime',
+    'from test_library.library.models import *',
+    'from django.db.models import Q',
+    'from django.db.models import Count',
+]
+
 # CACHES
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#caches

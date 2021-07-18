@@ -39,3 +39,33 @@ class Subscriber(models.Model):
     @property
     def email(self):
         return self.user.email
+
+
+class Hotel(models.Model):
+    title = models.CharField(max_length=128)
+    likes = models.PositiveIntegerField()
+    dislikes = models.PositiveIntegerField()
+
+    @property
+    def residents(self):
+        reservations = Reservation.objects.filter(room__in=self.rooms.all())
+        return User.objects.filter(reservations__in=reservations).distinct()
+
+    @property
+    def free_room_for_today(self):
+        return len(self.rooms.exclude(
+            reservations__start__lte=datetime.now(),
+            reservations__end__gte=datetime.now(),
+        ))
+
+
+class Room(models.Model):
+    title = models.CharField(max_length=128)
+    hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE, related_name='rooms')
+
+
+class Reservation(models.Model):
+    room = models.ForeignKey(Room, on_delete=models.CASCADE, related_name='reservations')
+    start = models.DateField()
+    end = models.DateField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reservations')
